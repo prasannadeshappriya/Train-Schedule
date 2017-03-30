@@ -13,10 +13,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/tvHello"
+        android:text="Train Schedule" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvHello"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dip"
         android:id="@+id/btnTest"
         android:text="Test"/>
 </RelativeLayout>
