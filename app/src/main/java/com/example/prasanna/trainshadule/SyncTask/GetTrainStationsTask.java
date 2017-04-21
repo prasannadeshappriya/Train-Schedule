@@ -2,7 +2,6 @@ package com.example.prasanna.trainshadule.SyncTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,9 +16,11 @@ import org.ksoap2.transport.HttpTransportSE;
  * Created by prasanna on 4/21/17.
  */
 
-public class GetLinesTask extends Task{
-    public GetLinesTask(Context _context, ProgressDialog _pd) {
-        super(_context, _pd);
+public class GetTrainStationsTask extends Task {
+    private int lineId;
+
+    public GetTrainStationsTask(Context _context, ProgressDialog _pd, int _lineId) {
+        super(_context, _pd); this.lineId = _lineId;
     }
 
     @Override
@@ -33,8 +34,14 @@ public class GetLinesTask extends Task{
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            String methodName = "getLines";
+            String methodName;
+            if(lineId==0) {
+                methodName = "getAllStations";
+            }else{
+                methodName = "getStations";
+            }
             SoapObject request = new SoapObject(Constants.NAMESPACE, methodName);
+            request.addProperty("line", String.valueOf(lineId));
             request.addProperty("lang", "en");
 
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);

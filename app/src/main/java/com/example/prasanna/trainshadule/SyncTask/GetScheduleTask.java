@@ -2,7 +2,6 @@ package com.example.prasanna.trainshadule.SyncTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,9 +16,29 @@ import org.ksoap2.transport.HttpTransportSE;
  * Created by prasanna on 4/21/17.
  */
 
-public class GetLinesTask extends Task{
-    public GetLinesTask(Context _context, ProgressDialog _pd) {
+public class GetScheduleTask extends Task {
+    private String fromStationCode;
+    private String toStationCode;
+    private String arrivalTime;
+    private String depatureTime;
+    private String currentDate;
+    private String currentTime;
+
+    public GetScheduleTask(Context _context, ProgressDialog _pd,
+                           String fromStationCode,
+                           String toStationCode,
+                           String arrivalTime,
+                           String depatureTime,
+                           String currentDate,
+                           String currentTime) {
         super(_context, _pd);
+
+        this.fromStationCode = fromStationCode;
+        this.toStationCode = toStationCode;
+        this.arrivalTime = arrivalTime;
+        this.depatureTime = depatureTime;
+        this.currentDate = currentDate;
+        this.currentTime = currentTime;
     }
 
     @Override
@@ -33,8 +52,14 @@ public class GetLinesTask extends Task{
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            String methodName = "getLines";
+            String methodName = "getSchedule";
             SoapObject request = new SoapObject(Constants.NAMESPACE, methodName);
+            request.addProperty("StartStationCode", fromStationCode);
+            request.addProperty("EndStationCode", toStationCode);
+            request.addProperty("ArrivalTime", arrivalTime);
+            request.addProperty("DepatureTime", depatureTime);
+            request.addProperty("CurrentDate", currentDate);
+            request.addProperty("CurrentTime", currentTime);
             request.addProperty("lang", "en");
 
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
