@@ -35,6 +35,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void test_method(){
-        request.getTrainSchedule();
+        request.getTrainRates();
     }
 }
