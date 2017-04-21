@@ -39,6 +39,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void test_method(){
-        request.getTrainStations(0);
+        request.getLines();
     }
 }

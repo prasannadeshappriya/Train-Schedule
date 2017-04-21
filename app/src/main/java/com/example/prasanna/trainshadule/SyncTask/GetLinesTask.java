@@ -7,11 +7,16 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.DAO.DAO;
+import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
+import com.example.prasanna.trainshadule.Models.TrainLine;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+
+import java.util.ArrayList;
 
 /**
  * Created by prasanna on 4/21/17.
@@ -21,6 +26,7 @@ public class GetLinesTask extends Task{
     public GetLinesTask(Context _context, ProgressDialog _pd) {
         super(_context, _pd);
     }
+    private TrainLinesDAO trainLinesDAO = new TrainLinesDAO(context);
 
     @Override
     protected void onPreExecute() {
@@ -45,12 +51,38 @@ public class GetLinesTask extends Task{
 
             httpTransport.call(actionName, envelope);
 
-            //Need to check both of them seperately
             Log.i(Constants.TAG, "Result :- " + envelope.bodyOut.toString());
             Log.i(Constants.TAG, "Result :- " + envelope.bodyIn.toString());
 
             request = (SoapObject) envelope.bodyIn;
-            String a = "Test"; //for debug request
+
+            //Insert Data into Database
+            if(trainLinesDAO.getItemCount()==0) {
+                Log.i(Constants.TAG, "Train line table is empty, Inserting data ...");
+                for(int i=0; i<request.getPropertyCount(); i++){
+                    SoapObject result = (SoapObject) request.getProperty(i);
+                    trainLinesDAO.addTrainLines(
+                            new TrainLine(
+                                    String.valueOf(result.getProperty("id")),
+                                    String.valueOf(result.getProperty("LineName"))
+                            )
+                    );
+                }
+            }else{
+                Log.i(Constants.TAG, "Updating Train line table, Please wait ...");
+                ArrayList<TrainLine> arrTrainLine = new ArrayList<>();
+
+                for(int i=0; i<request.getPropertyCount(); i++){
+                    SoapObject result = (SoapObject) request.getProperty(i);
+                    arrTrainLine.add(
+                            new TrainLine(
+                                    String.valueOf(result.getProperty("id")),
+                                    String.valueOf(result.getProperty("LineName"))
+                            )
+                    );
+                }
+                trainLinesDAO.updateTrainLines(arrTrainLine);
+            }
 
         } catch (Exception e) {
             Log.i(Constants.TAG, "Error on test AsyncTask :- " + e.toString());
@@ -62,7 +94,7 @@ public class GetLinesTask extends Task{
     protected void onPostExecute(Void aVoid) {
         //super.onPostExecute(aVoid);
         pd.dismiss();
-        Log.i(Constants.TAG, "Process test successfully executed");
+        Log.i(Constants.TAG, "GetLine Task successfully executed");
         Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
     }
 }

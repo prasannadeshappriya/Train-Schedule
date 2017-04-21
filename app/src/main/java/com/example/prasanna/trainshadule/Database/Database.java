@@ -26,9 +26,9 @@ public class Database extends SQLiteOpenHelper {
     private void printLog(String action, String table_name, String sql_command){
         String TAG = Constants.TAG;
         if(action.equals(CREATE)) {
-            Log.i(Constants.TAG, "Create " + table_name + " table [Sql_Command :- '" + sql_command + "']");
+            Log.i(TAG, "Create " + table_name + " table [Sql_Command :- '" + sql_command + "']");
         }else if(action.equals(DROP)){
-            Log.i(Constants.TAG, "Drop " + table_name + " table [Sql_Command :- '" + sql_command + "']");
+            Log.i(TAG, "Drop " + table_name + " table [Sql_Command :- '" + sql_command + "']");
         }
     }
 
