@@ -33,4 +33,8 @@ public class Constants {
     public static final String ENDPOINT = "http://103.11.35.13:9080/services/RailwayWebServiceV2Proxy.RailwayWebServiceV2ProxyHttpSoap12Endpoint";
 
     public static final String TAG = "Train-Shedule";
+
+    //Database Constants
+    public static final String DATABASE_NAME = "train_schedule";
+    public static final int DATABASE_VERSION = 1;
 }

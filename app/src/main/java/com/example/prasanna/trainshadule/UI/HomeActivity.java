@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.prasanna.trainshadule.DAO.DAO;
+import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
 import com.example.prasanna.trainshadule.R;
 import com.example.prasanna.trainshadule.ServerRequest.Request;
 
@@ -22,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         btnTest = (Button) findViewById(R.id.btnTest);
         request = new Request(this,pd);
+        DAO trainLinesDAO = new TrainLinesDAO(this);
 
         //Listeners
         btnTest.setOnClickListener(
@@ -35,6 +39,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void test_method(){
-        request.getTrainDelays();
+        request.getTrainStations(0);
     }
 }
