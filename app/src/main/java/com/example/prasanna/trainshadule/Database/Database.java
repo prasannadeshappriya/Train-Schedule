@@ -41,6 +41,14 @@ public class Database extends SQLiteOpenHelper {
                     "line_name VARCHAR(255));";
         printLog(CREATE, "train_lines", sqlCommand);
         db.execSQL(sqlCommand);
+
+        sqlCommand = "CREATE TABLE IF NOT EXISTS train_stations (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "station_code VARCHAR(255), " +
+                    "station_name VARCHAR(255), " +
+                    "line_code VARCHAR(255));";
+        printLog(CREATE, "train_stations", sqlCommand);
+        db.execSQL(sqlCommand);
     }
 
     @Override

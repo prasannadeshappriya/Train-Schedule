@@ -24,6 +24,22 @@ public class TrainLinesDAO extends DAO {
         this.context = context;
     }
 
+    public ArrayList<Integer> getLineIdArray(){
+        command = "SELECT * FROM " + tableName + " WHERE 1;";
+        Log.i(Constants.TAG,"Query [getLineIdArray method in TrainLinesDAO] :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        Log.i(Constants.TAG,"Cursor count [getLineIdArray method in TrainLinesDAO] :- " + c.getCount());
+
+        ArrayList<Integer> arrTrainLineId = new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
+                arrTrainLineId.add(Integer.parseInt(c.getString(c.getColumnIndex("line_id"))));
+            } while (c.moveToNext());
+        }
+
+        return arrTrainLineId;
+    }
+
     public void addTrainLines(TrainLine trainLine){
         ContentValues contentValues = new ContentValues();
         contentValues.put("line_id",trainLine.getLine_id());
@@ -38,7 +54,7 @@ public class TrainLinesDAO extends DAO {
 
     public int getItemCount(){
         command = "SELECT line_id FROM " + tableName + ";";
-        Log.i(Constants.TAG,"Query [GetItemCount method] :- " + command);
+        Log.i(Constants.TAG,"Query [GetItemCount method in TrainLinesDAO] :- " + command);
         Cursor c = sqldb.rawQuery(command, null);
         return c.getCount();
     }
@@ -53,11 +69,10 @@ public class TrainLinesDAO extends DAO {
     }
 
     public void updateTrainLines(ArrayList<TrainLine> arrTrainLineNew){
-
         command = "SELECT * FROM " + tableName + " WHERE 1;";
-        Log.i(Constants.TAG,"Query [UpdateTrainLines method] :- " + command);
+        Log.i(Constants.TAG,"Query [UpdateTrainLines method in TrainLinesDAO] :- " + command);
         Cursor c = sqldb.rawQuery(command,null);
-        Log.i(Constants.TAG,"Cursor count [UpdateTrainLines method] :- " + c.getCount());
+        Log.i(Constants.TAG,"Cursor count [UpdateTrainLines method in TrainLinesDAO] :- " + c.getCount());
 
         ArrayList<TrainLine> arrTrainLine = new ArrayList<>();
         if(c.moveToFirst()) {

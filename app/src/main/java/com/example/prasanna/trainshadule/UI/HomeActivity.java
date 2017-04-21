@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.example.prasanna.trainshadule.DAO.DAO;
 import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
 import com.example.prasanna.trainshadule.R;
@@ -39,6 +38,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void test_method(){
-        request.getLines();
+        //TrainStationDAO a = new TrainStationDAO(this);
+        //a.tmp();
+        request.getTrainStations(1);
     }
 }
