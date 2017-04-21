@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.SyncTask.GetDelaysTask;
 import com.example.prasanna.trainshadule.SyncTask.GetLinesTask;
 import com.example.prasanna.trainshadule.SyncTask.GetRatesTask;
 import com.example.prasanna.trainshadule.SyncTask.GetScheduleTask;
@@ -53,6 +54,18 @@ public class Request {
                 todayTime
         );
         getTrainScheduleTask.execute();
+    }
+
+    public void getTrainDelays(){
+        Calendar now = Calendar.getInstance();
+        String todayDate = String.format("%1$tY-%1$tm-%1$td", now);
+        String todayTime = String.format("%1$tH:%1$tM:%1$tS", now);
+
+        Task getTrainDelaysTask = new GetDelaysTask(context,pd,
+                todayDate,
+                todayTime
+        );
+        getTrainDelaysTask.execute();
     }
 
     public void getTrainRates(){
