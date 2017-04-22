@@ -6,11 +6,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.Models.TrainSchedule;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+
+import java.util.ArrayList;
 
 /**
  * Created by prasanna on 4/21/17.
@@ -75,7 +78,39 @@ public class GetScheduleTask extends Task {
             Log.i(Constants.TAG, "Result :- " + envelope.bodyIn.toString());
 
             request = (SoapObject) envelope.bodyIn;
-            String a = "Test"; //for debug request
+
+            ArrayList<TrainSchedule> arrTrainSchedle = new ArrayList<>();
+            for(int i=0; i<request.getPropertyCount(); i++){
+                SoapObject result = (SoapObject) request.getProperty(i);
+                TrainSchedule schedule = new TrainSchedule(
+                        result.getProperty("name").toString(),
+                        result.getProperty("arrival").toString(),
+                        result.getProperty("departure").toString(),
+                        result.getProperty("destination").toString(),
+                        result.getProperty("delay").toString(),
+                        result.getProperty("comment").toString(),
+                        result.getProperty("fdescriptioneng").toString(),
+                        result.getProperty("tydescriptioneng").toString(),
+                        result.getProperty("frtrstationnameeng").toString(),
+                        result.getProperty("totrstationnameeng").toString()
+                );
+                arrTrainSchedle.add(schedule);
+            }
+
+            for(TrainSchedule schedule : arrTrainSchedle){
+                Log.i(Constants.TAG, "-----------------------------------");
+                Log.i(Constants.TAG, schedule.getName());
+                Log.i(Constants.TAG, schedule.getArrival());
+                Log.i(Constants.TAG, schedule.getDeparture());
+                Log.i(Constants.TAG, schedule.getDestination());
+                Log.i(Constants.TAG, schedule.getDelay());
+                Log.i(Constants.TAG, schedule.getComment());
+                Log.i(Constants.TAG, schedule.getFdescriptioneng());
+                Log.i(Constants.TAG, schedule.getTydescriptioneng());
+                Log.i(Constants.TAG, schedule.getFrtrstationnameeng());
+                Log.i(Constants.TAG, schedule.getTotrstationnameeng());
+                Log.i(Constants.TAG, "-----------------------------------");
+            }
 
         } catch (Exception e) {
             Log.i(Constants.TAG, "Error on test AsyncTask :- " + e.toString());

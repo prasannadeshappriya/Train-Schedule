@@ -52,6 +52,63 @@ public class TrainStationDAO extends DAO {
         return c.getCount();
     }
 
+    public ArrayList<TrainStation> getTrainStations(){
+        command = "SELECT * FROM " + tableName + " WHERE 1;";
+        Log.i(Constants.TAG,"Query [getTrainStations method in TrainStationDAO] :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        Log.i(Constants.TAG,"Cursor count [getTrainStations method in TrainStationDAO] :- " + c.getCount());
+
+        ArrayList<TrainStation> arrTrainStations = new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
+                arrTrainStations.add(
+                        new TrainStation(
+                                c.getString(c.getColumnIndex("station_code")),
+                                c.getString(c.getColumnIndex("station_name")),
+                                c.getString(c.getColumnIndex("line_code"))
+                        )
+                );
+            } while (c.moveToNext());
+        }
+        return arrTrainStations;
+    }
+
+    public String getTrainStationCode(String TrainStationName){
+        command = "SELECT station_code FROM " + tableName + " WHERE station_name =\"" + TrainStationName + "\";";
+        Log.i(Constants.TAG,"Query [getTrainStationCode method in TrainStationDAO] :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        Log.i(Constants.TAG,"Cursor count [getTrainStationCode method in TrainStationDAO] :- " + c.getCount());
+
+        ArrayList<String> arrStationCode = new ArrayList<>();
+        if(c.getCount()==0){return "";}
+        if(c.moveToFirst()) {
+            arrStationCode.add(
+                    c.getString(c.getColumnIndex("station_code"))
+            );
+        }
+        return arrStationCode.get(0);
+    }
+
+    public ArrayList<String> getTrainStationName(){
+        command = "SELECT DISTINCT station_name FROM " + tableName + " WHERE 1 GROUP BY station_name ORDER BY station_name;";
+        Log.i(Constants.TAG,"Query [getTrainStations method in TrainStationDAO] :- " + command);
+        Cursor c = sqldb.rawQuery(command,null);
+        Log.i(Constants.TAG,"Cursor count [getTrainStations method in TrainStationDAO] :- " + c.getCount());
+
+        ArrayList<String> arrTrainStationNames = new ArrayList<>();
+        if(c.moveToFirst()) {
+            do {
+                if(!c.getString(c.getColumnIndex("station_name")).equals("anyType{}")) {
+                    arrTrainStationNames.add(
+                            c.getString(c.getColumnIndex("station_name"))
+                    );
+                }
+            } while (c.moveToNext());
+        }
+
+        return arrTrainStationNames;
+    }
+
     public void tmp(){
         command = "DELETE FROM " + tableName + ";";
         sqldb.execSQL(command);

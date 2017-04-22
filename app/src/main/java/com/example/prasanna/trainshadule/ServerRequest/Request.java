@@ -37,7 +37,7 @@ public class Request {
         getTrainStationTask.execute();
     }
 
-    public void getTrainSchedule(){
+    public void getTrainSchedule(String fromCode, String toCode){
         Calendar now = Calendar.getInstance();
         String todayDate = String.format("%1$tY-%1$tm-%1$td", now);
         String todayTime = String.format("%1$tH:%1$tM:%1$tS", now);
@@ -46,8 +46,8 @@ public class Request {
         Log.i(Constants.TAG, "Today Time :- " + todayTime + " [Format - '%1$tH:%1$tM:%1$tS']");
 
         Task getTrainScheduleTask = new GetScheduleTask(context,pd,
-                "FOT",
-                "BPT",
+                fromCode,
+                toCode,
                 "00:00:00", //Replace with todayTime for view next available trains
                 "23:59:59",
                 todayDate,
