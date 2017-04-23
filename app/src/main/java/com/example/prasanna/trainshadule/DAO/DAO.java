@@ -2,7 +2,7 @@ package com.example.prasanna.trainshadule.DAO;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.Database.Database;
 
 /**

@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
 import com.example.prasanna.trainshadule.DAO.TrainStationDAO;
 import com.example.prasanna.trainshadule.Models.TrainStation;

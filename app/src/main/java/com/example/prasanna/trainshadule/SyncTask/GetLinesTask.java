@@ -2,12 +2,10 @@ package com.example.prasanna.trainshadule.SyncTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.prasanna.trainshadule.Constants.Constants;
-import com.example.prasanna.trainshadule.DAO.DAO;
+import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
 import com.example.prasanna.trainshadule.Models.TrainLine;
 

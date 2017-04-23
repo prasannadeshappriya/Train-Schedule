@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.Models.TrainStation;
 
 import java.util.ArrayList;

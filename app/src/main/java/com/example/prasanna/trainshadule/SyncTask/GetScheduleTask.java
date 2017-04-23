@@ -5,7 +5,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.Utilities.Constants;
+import com.example.prasanna.trainshadule.Fragments.TrainScheduleFragment;
 import com.example.prasanna.trainshadule.Models.TrainSchedule;
 
 import org.ksoap2.SoapEnvelope;
@@ -26,6 +27,8 @@ public class GetScheduleTask extends Task {
     private String depatureTime;
     private String currentDate;
     private String currentTime;
+    private ArrayList<TrainSchedule> arrTrainSchedle;
+    private TrainScheduleFragment fragment;
 
     public GetScheduleTask(Context _context, ProgressDialog _pd,
                            String fromStationCode,
@@ -33,7 +36,8 @@ public class GetScheduleTask extends Task {
                            String arrivalTime,
                            String depatureTime,
                            String currentDate,
-                           String currentTime) {
+                           String currentTime,
+                           TrainScheduleFragment fragment) {
         super(_context, _pd);
 
         this.fromStationCode = fromStationCode;
@@ -42,6 +46,7 @@ public class GetScheduleTask extends Task {
         this.depatureTime = depatureTime;
         this.currentDate = currentDate;
         this.currentTime = currentTime;
+        this.fragment = fragment;
     }
 
     @Override
@@ -78,8 +83,7 @@ public class GetScheduleTask extends Task {
             Log.i(Constants.TAG, "Result :- " + envelope.bodyIn.toString());
 
             request = (SoapObject) envelope.bodyIn;
-
-            ArrayList<TrainSchedule> arrTrainSchedle = new ArrayList<>();
+            arrTrainSchedle = new ArrayList<>();
             for(int i=0; i<request.getPropertyCount(); i++){
                 SoapObject result = (SoapObject) request.getProperty(i);
                 TrainSchedule schedule = new TrainSchedule(
@@ -97,21 +101,6 @@ public class GetScheduleTask extends Task {
                 arrTrainSchedle.add(schedule);
             }
 
-            for(TrainSchedule schedule : arrTrainSchedle){
-                Log.i(Constants.TAG, "-----------------------------------");
-                Log.i(Constants.TAG, schedule.getName());
-                Log.i(Constants.TAG, schedule.getArrival());
-                Log.i(Constants.TAG, schedule.getDeparture());
-                Log.i(Constants.TAG, schedule.getDestination());
-                Log.i(Constants.TAG, schedule.getDelay());
-                Log.i(Constants.TAG, schedule.getComment());
-                Log.i(Constants.TAG, schedule.getFdescriptioneng());
-                Log.i(Constants.TAG, schedule.getTydescriptioneng());
-                Log.i(Constants.TAG, schedule.getFrtrstationnameeng());
-                Log.i(Constants.TAG, schedule.getTotrstationnameeng());
-                Log.i(Constants.TAG, "-----------------------------------");
-            }
-
         } catch (Exception e) {
             Log.i(Constants.TAG, "Error on test AsyncTask :- " + e.toString());
         }
@@ -124,5 +113,6 @@ public class GetScheduleTask extends Task {
         pd.dismiss();
         Log.i(Constants.TAG, "Process test successfully executed");
         Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
+        fragment.viewTrainScheduleFragment(arrTrainSchedle);
     }
 }

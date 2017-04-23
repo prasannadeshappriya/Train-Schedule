@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.prasanna.trainshadule.Constants.Constants;
+import com.example.prasanna.trainshadule.Utilities.Constants;
 
 /**
  * Created by prasanna on 4/21/17.

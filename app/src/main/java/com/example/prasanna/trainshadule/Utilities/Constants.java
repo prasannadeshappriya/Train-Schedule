@@ -1,4 +1,4 @@
-package com.example.prasanna.trainshadule.Constants;
+package com.example.prasanna.trainshadule.Utilities;
 
 /**
  * Created by prasanna on 3/30/17.
@@ -28,7 +28,7 @@ package com.example.prasanna.trainshadule.Constants;
      -----------------------------------------------------------------
  */
 
-public class Constants {
+public abstract class Constants {
     public static final String NAMESPACE = "http://ws.wso2.org/dataservice";
     public static final String ENDPOINT = "http://103.11.35.13:9080/services/RailwayWebServiceV2Proxy.RailwayWebServiceV2ProxyHttpSoap12Endpoint";
 
