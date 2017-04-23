@@ -43,6 +43,12 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frmMain, trainScheduleFragment);
+        toolbar.setTitle("Train Schedule");
+        transaction.commit();
     }
 
 
@@ -88,6 +94,7 @@ public class HomeActivity extends AppCompatActivity
             TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frmMain, trainScheduleFragment);
+            toolbar.setTitle("Train Schedule");
             transaction.commit();
         }
 

@@ -47,7 +47,7 @@ public class TrainScheduleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_train_schedule,container,false);
 
         //Initialize
-        pd = new ProgressDialog(getContext());
+        pd = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
         btnSearch = (Button) view.findViewById(R.id.btnTest);
         request = new Request(getContext(),pd);
         tvFromStation = (AutoCompleteTextView) view.findViewById(R.id.tvFromStation);
