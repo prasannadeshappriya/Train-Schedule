@@ -32,7 +32,7 @@ public class TrainScheduleViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_train_schedule_view,container,false);
         lstTrainSchedule = (ListView) view.findViewById(R.id.lstTrainSchedule);
-        if(!arrTrainSchedle.isEmpty()) {
+        if(arrTrainSchedle!=null) {
             TrainScheduleAdapter adapter = new TrainScheduleAdapter(getContext(), arrTrainSchedle);
             lstTrainSchedule.setAdapter(adapter);
         }
