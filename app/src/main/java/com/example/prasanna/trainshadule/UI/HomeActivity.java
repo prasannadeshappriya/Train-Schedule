@@ -26,6 +26,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,18 @@ public class HomeActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        pd = new ProgressDialog(this,R.style.AppTheme_Dark_Dialog);
+        Request request = new Request(this,pd,this);
+        request.getLines();
+    }
+
+    public void showTrainScheduleFragment(){
         TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frmMain, trainScheduleFragment);
         toolbar.setTitle("Train Schedule");
         transaction.commit();
     }
-
 
     @Override
     public void onBackPressed() {

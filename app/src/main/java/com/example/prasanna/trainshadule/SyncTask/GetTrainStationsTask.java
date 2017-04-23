@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.prasanna.trainshadule.UI.HomeActivity;
 import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
 import com.example.prasanna.trainshadule.DAO.TrainStationDAO;
@@ -22,9 +24,11 @@ public class GetTrainStationsTask extends Task {
     private int lineId;
     private TrainStationDAO trainStationDAO = new TrainStationDAO(context);
     private TrainLinesDAO trainLinesDAO = new TrainLinesDAO(context);
+    private HomeActivity homeActivity;
 
-    public GetTrainStationsTask(Context _context, ProgressDialog _pd, int _lineId) {
+    public GetTrainStationsTask(Context _context, ProgressDialog _pd, int _lineId, HomeActivity homeActivity) {
         super(_context, _pd); this.lineId = _lineId;
+        this.homeActivity = homeActivity;
     }
 
     @Override
@@ -110,7 +114,8 @@ public class GetTrainStationsTask extends Task {
     protected void onPostExecute(Void aVoid) {
         //super.onPostExecute(aVoid);
         pd.dismiss();
-        Log.i(Constants.TAG, "Process test successfully executed");
+        Log.i(Constants.TAG, "GetLine Task successfully executed");
         Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
+        homeActivity.showTrainScheduleFragment();
     }
 }

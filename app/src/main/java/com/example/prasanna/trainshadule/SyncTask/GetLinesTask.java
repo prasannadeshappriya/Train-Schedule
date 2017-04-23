@@ -5,6 +5,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.prasanna.trainshadule.ServerRequest.Request;
+import com.example.prasanna.trainshadule.UI.HomeActivity;
 import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
 import com.example.prasanna.trainshadule.Models.TrainLine;
@@ -21,10 +23,12 @@ import java.util.ArrayList;
  */
 
 public class GetLinesTask extends Task{
-    public GetLinesTask(Context _context, ProgressDialog _pd) {
+    public GetLinesTask(Context _context, ProgressDialog _pd, HomeActivity homeActivity) {
         super(_context, _pd);
+        this.homeActivity = homeActivity;
     }
     private TrainLinesDAO trainLinesDAO = new TrainLinesDAO(context);
+    private HomeActivity homeActivity;
 
     @Override
     protected void onPreExecute() {
@@ -81,7 +85,6 @@ public class GetLinesTask extends Task{
                 }
                 trainLinesDAO.updateTrainLines(arrTrainLine);
             }
-
         } catch (Exception e) {
             Log.i(Constants.TAG, "Error on test AsyncTask :- " + e.toString());
         }
@@ -94,5 +97,8 @@ public class GetLinesTask extends Task{
         pd.dismiss();
         Log.i(Constants.TAG, "GetLine Task successfully executed");
         Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
+
+        Task getTrainStationTask = new GetTrainStationsTask(context,pd,2,homeActivity);
+        getTrainStationTask.execute();
     }
 }

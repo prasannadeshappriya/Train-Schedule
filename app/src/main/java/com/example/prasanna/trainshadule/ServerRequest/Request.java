@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.prasanna.trainshadule.UI.HomeActivity;
 import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.Fragments.TrainScheduleFragment;
 import com.example.prasanna.trainshadule.SyncTask.GetDelaysTask;
@@ -23,20 +24,22 @@ import java.util.StringTokenizer;
 public class Request {
     private Context context;
     private ProgressDialog pd;
+    private HomeActivity homeActivity;
 
     public Request(Context context, ProgressDialog pd){
         this.context = context;
         this.pd = pd;
     }
 
-    public void getLines(){
-        Task getLinesTask = new GetLinesTask(context,pd);
-        getLinesTask.execute();
+    public Request(Context context, ProgressDialog pd, HomeActivity homeActivity){
+        this.context = context;
+        this.pd = pd;
+        this.homeActivity = homeActivity;
     }
 
-    public void getTrainStations(int lineId){
-        Task getTrainStationTask = new GetTrainStationsTask(context,pd,lineId);
-        getTrainStationTask.execute();
+    public void getLines(){
+        Task getLinesTask = new GetLinesTask(context,pd,homeActivity);
+        getLinesTask.execute();
     }
 
     public void getTrainSchedule(String fromCode, String toCode, TrainScheduleFragment fragment,
