@@ -33,7 +33,10 @@ public class TrainStationDAO extends DAO {
                 null,
                 contentValues
         );
-        Log.i(Constants.TAG, "Train Stations insert successfully!");
+        Log.i(Constants.TAG, "Train Stations [station_code - " + trainStation.getStationCode()
+                + ", line_code - " + trainStation.getLineCode()
+                + ", station_name - " +trainStation.getStationName()
+                +  "] insert successfully!");
     }
 
     private int getIndex(ArrayList<TrainStation> lstTrainStations, TrainStation trainStation){
@@ -43,6 +46,13 @@ public class TrainStationDAO extends DAO {
             }
         }
         return -1;
+    }
+
+    public int getTotalCount(){
+        command = "SELECT station_name FROM " + tableName + ";";
+        Log.i(Constants.TAG,"Query [getTotalCount method in TrainStationDAO] :- " + command);
+        Cursor c = sqldb.rawQuery(command, null);
+        return c.getCount();
     }
 
     public int getItemCount(String line_code){

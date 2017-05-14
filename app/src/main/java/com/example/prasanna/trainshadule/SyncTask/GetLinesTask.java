@@ -32,10 +32,12 @@ public class GetLinesTask extends Task{
 
     @Override
     protected void onPreExecute() {
-        pd.setIndeterminate(true);
-        pd.setCanceledOnTouchOutside(false);
-        pd.setMessage("Please wait");
-        pd.show();
+        if(pd!=null) {
+            pd.setIndeterminate(true);
+            pd.setCanceledOnTouchOutside(false);
+            pd.setMessage("Please wait");
+            pd.show();
+        }
     }
 
     @Override
@@ -94,7 +96,7 @@ public class GetLinesTask extends Task{
     @Override
     protected void onPostExecute(Void aVoid) {
         //super.onPostExecute(aVoid);
-        pd.dismiss();
+        if(pd!=null) pd.dismiss();
         Log.i(Constants.TAG, "GetLine Task successfully executed");
         Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
 

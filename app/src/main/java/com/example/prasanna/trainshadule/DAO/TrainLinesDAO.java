@@ -49,7 +49,8 @@ public class TrainLinesDAO extends DAO {
                 null,
                 contentValues
         );
-        Log.i(Constants.TAG, "TrainLines insert successfully!");
+        Log.i(Constants.TAG, "TrainLines [line_id - " + trainLine.getLine_id()
+                    + ", line_name - " + trainLine.getLine_name() + "] insert successfully!");
     }
 
     public int getItemCount(){

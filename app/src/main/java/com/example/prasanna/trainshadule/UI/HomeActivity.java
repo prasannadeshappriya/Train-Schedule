@@ -1,10 +1,13 @@
 package com.example.prasanna.trainshadule.UI;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,9 +21,11 @@ import android.widget.Button;
 
 import com.example.prasanna.trainshadule.DAO.DAO;
 import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;
+import com.example.prasanna.trainshadule.DAO.TrainStationDAO;
 import com.example.prasanna.trainshadule.Fragments.TrainScheduleFragment;
 import com.example.prasanna.trainshadule.R;
 import com.example.prasanna.trainshadule.ServerRequest.Request;
+import com.example.prasanna.trainshadule.Utilities.Constants;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,17 +50,47 @@ public class HomeActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        pd = new ProgressDialog(this,R.style.AppTheme_Dark_Dialog);
-        Request request = new Request(this,pd,this);
-        request.getLines();
+        TrainStationDAO trainStationDAO = new TrainStationDAO(this);
+        if (trainStationDAO.getTotalCount()>0){
+            Log.i(Constants.TAG, "Database already has updated data");
+            showTrainScheduleFragment showTrainScheduleFragment = new showTrainScheduleFragment(this,this);
+            showTrainScheduleFragment.execute();
+        }else {
+            pd = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+            TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+            trainScheduleFragment.synchronize(this, pd, this);
+            refreshHome();
+        }
     }
 
-    public void showTrainScheduleFragment(){
-        TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frmMain, trainScheduleFragment);
-        toolbar.setTitle("Train Schedule");
-        transaction.commit();
+    public class showTrainScheduleFragment extends AsyncTask<Void,Void,Void>{
+        private TrainScheduleFragment trainScheduleFragment;
+        private Context context;
+        private HomeActivity activity;
+        public showTrainScheduleFragment(Context context, HomeActivity activity){
+            this.context = context;
+            this.activity = activity;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Request request = new Request(context,null, activity);
+            request.getLines();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            trainScheduleFragment = new TrainScheduleFragment();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frmMain, trainScheduleFragment);
+            toolbar.setTitle("Train Schedule");
+            transaction.commit();
+        }
     }
 
     @Override
@@ -107,5 +142,13 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void refreshHome(){
+        TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frmMain, trainScheduleFragment);
+        toolbar.setTitle("Train Schedule");
+        transaction.commit();
     }
 }

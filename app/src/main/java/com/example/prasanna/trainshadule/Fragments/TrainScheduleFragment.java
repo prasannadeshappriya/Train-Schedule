@@ -1,6 +1,7 @@
 package com.example.prasanna.trainshadule.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.prasanna.trainshadule.UI.HomeActivity;
 import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.DAO.TrainStationDAO;
 import com.example.prasanna.trainshadule.Models.TrainSchedule;
@@ -94,6 +96,11 @@ public class TrainScheduleFragment extends Fragment {
         );
 
         return view;
+    }
+
+    public void synchronize(Context context, ProgressDialog pd, HomeActivity activity){
+        Request request = new Request(context,pd, activity);
+        request.getLines();
     }
 
     private void search(){
