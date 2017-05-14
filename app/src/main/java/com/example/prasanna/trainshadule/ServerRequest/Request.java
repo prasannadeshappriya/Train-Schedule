@@ -15,7 +15,6 @@ import com.example.prasanna.trainshadule.SyncTask.GetTrainStationsTask;
 import com.example.prasanna.trainshadule.SyncTask.Task;
 
 import java.util.Calendar;
-import java.util.StringTokenizer;
 
 /**
  * Created by prasanna on 4/12/17.

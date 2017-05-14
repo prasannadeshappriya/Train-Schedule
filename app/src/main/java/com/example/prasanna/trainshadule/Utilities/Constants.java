@@ -1,5 +1,8 @@
 package com.example.prasanna.trainshadule.Utilities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by prasanna on 3/30/17.
  *
@@ -37,4 +40,10 @@ public abstract class Constants {
     //Database Constants
     public static final String DATABASE_NAME = "train_schedule";
     public static final int DATABASE_VERSION = 1;
+
+    //Train Schedule constants
+    public static final String MONDAY_TO_SATURDAY = "MONDAY TO SATURDAY";
+    public static final String SATURDAY_AND_SUNDAY = "SATURDAY AND SUNDAY";
+    public static final String MONDAY_TO_FRIDAY = "MONDAY TO FRIDAY";
+    public static final String DAILY = "DAILY";
 }
