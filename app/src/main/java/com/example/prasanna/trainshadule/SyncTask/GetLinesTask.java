@@ -98,7 +98,7 @@ public class GetLinesTask extends Task{
         //super.onPostExecute(aVoid);
         if(pd!=null) pd.dismiss();
         Log.i(Constants.TAG, "GetLine Task successfully executed");
-        Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
 
         Task getTrainStationTask = new GetTrainStationsTask(context,pd,2,homeActivity);
         getTrainStationTask.execute();

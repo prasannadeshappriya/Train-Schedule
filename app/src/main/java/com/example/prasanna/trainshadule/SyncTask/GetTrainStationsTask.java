@@ -117,7 +117,7 @@ public class GetTrainStationsTask extends Task {
         //super.onPostExecute(aVoid);
         if(pd!=null) pd.dismiss();
         Log.i(Constants.TAG, "GetTrainStations Task successfully executed");
-        Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Sync process completed", Toast.LENGTH_LONG).show();
         homeActivity.refreshHome();
     }
 }
