@@ -48,4 +48,6 @@ public abstract class Constants {
     public static final String FRAGMENT_TRAIN_SCHEDULE = "train_schedule";
     public static final String FRAGMENT_FEEDBACK = "feedback";
     public static final String FRAGMENT_TRAIN_SCHEDULE_VIEW = "train_schedule_view";
+
+    public static final String SERVER_TOKEN = "sd832onsas9d1n23ld2ffwefwefcwfadlsnnio21dNEJNOCFOIEWOFJOIJOQIEWJFQ8156516516!@#@$@#%^$l23n4l23";
 }

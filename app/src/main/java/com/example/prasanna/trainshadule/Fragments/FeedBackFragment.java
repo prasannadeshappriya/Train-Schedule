@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,13 +64,14 @@ public class FeedBackFragment extends Fragment {
         Map<String,String> parameters = new HashMap<>();
         parameters.put("email",etEmail.getText().toString());
         parameters.put("message",etMessage.getText().toString());
+        parameters.put("token",Constants.SERVER_TOKEN);
         ProgressDialog pd = new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
         message msg = new message(getContext(),parameters,pd);
         msg.execute();
     }
 
     private class message extends AsyncTask<Void,Void,Void>{
-        private String server_url;
+        private String server_url = "http://10.0.2.2:8000/train_schedule_feedback";
         private String server_response;
         private Context context;
         private Map<String, String> parameters;
@@ -134,6 +136,7 @@ public class FeedBackFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             Log.i(Constants.TAG,"Response :- " + server_response);
+            Toast.makeText(context,"Message Sent",Toast.LENGTH_LONG).show();
             try {
                 JSONObject obj = new JSONObject(server_response);
                 if (obj.has("error")) {
@@ -147,6 +150,12 @@ public class FeedBackFragment extends Fragment {
                 Log.i("TAG","Invalid response from server :- " + e.toString());
             }
             pd.dismiss();
+            TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(android.R.anim.slide_in_left,
+                    android.R.anim.slide_out_right);
+            transaction.replace(R.id.frmMain,trainScheduleFragment);
+            transaction.commit();
         }
     }
 }
