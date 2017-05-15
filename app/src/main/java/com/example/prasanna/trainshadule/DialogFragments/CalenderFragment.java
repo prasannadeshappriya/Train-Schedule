@@ -19,7 +19,7 @@ import com.example.prasanna.trainshadule.R;
 
 public class CalenderFragment extends DialogFragment implements TextView.OnEditorActionListener {
     private DatePicker datePicker;
-    private EditText btnSelect;
+    private TextView btnSelect;
     private int year,month,date;
     public CalenderFragment(){}
 
@@ -34,7 +34,7 @@ public class CalenderFragment extends DialogFragment implements TextView.OnEdito
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_calender,container,false);
         //init
-        btnSelect = (EditText) view.findViewById(R.id.btnSelect);
+        btnSelect = (TextView) view.findViewById(R.id.btnSelect);
         datePicker = (DatePicker) view.findViewById(R.id.datePicker);
 
         datePicker.updateDate(year,month,date);
