@@ -51,16 +51,16 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         TrainStationDAO trainStationDAO = new TrainStationDAO(this);
-//        if (trainStationDAO.getTotalCount()>0){
-//            Log.i(Constants.TAG, "Database already has updated data");
-//            showTrainScheduleFragment showTrainScheduleFragment = new showTrainScheduleFragment(this,this);
-//            showTrainScheduleFragment.execute();
-//        }else {
-//            pd = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
-//            TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
-//            trainScheduleFragment.synchronize(this, pd, this);
-//            refreshHome();
-//        }
+        if (trainStationDAO.getTotalCount()>0){
+            Log.i(Constants.TAG, "Database already has updated data");
+            showTrainScheduleFragment showTrainScheduleFragment = new showTrainScheduleFragment(this,this);
+            showTrainScheduleFragment.execute();
+        }else {
+            pd = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+            TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+            trainScheduleFragment.synchronize(this, pd, this);
+            refreshHome();
+        }
     }
 
     public class showTrainScheduleFragment extends AsyncTask<Void,Void,Void>{
