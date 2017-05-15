@@ -208,7 +208,7 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         trainScheduleViewFragment.setTrainScheduleDesc(map);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frmMain, trainScheduleViewFragment);
+        transaction.replace(R.id.frmMain, trainScheduleViewFragment,Constants.FRAGMENT_TRAIN_SCHEDULE_VIEW);
         transaction.commit();
     }
 

@@ -47,4 +47,5 @@ public abstract class Constants {
     //Fragment Tag names
     public static final String FRAGMENT_TRAIN_SCHEDULE = "train_schedule";
     public static final String FRAGMENT_FEEDBACK = "feedback";
+    public static final String FRAGMENT_TRAIN_SCHEDULE_VIEW = "train_schedule_view";
 }

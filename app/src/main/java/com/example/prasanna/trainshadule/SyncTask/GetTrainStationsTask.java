@@ -3,7 +3,6 @@ package com.example.prasanna.trainshadule.SyncTask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.prasanna.trainshadule.UI.HomeActivity;
 import com.example.prasanna.trainshadule.Utilities.Constants;
@@ -117,7 +116,7 @@ public class GetTrainStationsTask extends Task {
         //super.onPostExecute(aVoid);
         if(pd!=null) pd.dismiss();
         Log.i(Constants.TAG, "GetTrainStations Task successfully executed");
-        Toast.makeText(context, "Sync process completed", Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, "Sync process completed", Toast.LENGTH_LONG).show();
         homeActivity.refreshHome();
     }
 }
