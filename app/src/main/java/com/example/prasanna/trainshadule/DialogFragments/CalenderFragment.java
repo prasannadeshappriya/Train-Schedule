@@ -7,8 +7,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.prasanna.trainshadule.R;
@@ -19,14 +19,14 @@ import com.example.prasanna.trainshadule.R;
 
 public class CalenderFragment extends DialogFragment implements TextView.OnEditorActionListener {
     private DatePicker datePicker;
-    private Button btnSelect;
+    private EditText btnSelect;
     private int year,month,date;
     public CalenderFragment(){}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.AppTheme_Dark_Dialog);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.TimePickerTheme);
     }
 
     @Nullable
@@ -34,7 +34,7 @@ public class CalenderFragment extends DialogFragment implements TextView.OnEdito
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_calender,container,false);
         //init
-        btnSelect = (Button) view.findViewById(R.id.btnSelect);
+        btnSelect = (EditText) view.findViewById(R.id.btnSelect);
         datePicker = (DatePicker) view.findViewById(R.id.datePicker);
 
         datePicker.updateDate(year,month,date);

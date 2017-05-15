@@ -3,9 +3,6 @@ package com.example.prasanna.trainshadule.SyncTask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.example.prasanna.trainshadule.ServerRequest.Request;
 import com.example.prasanna.trainshadule.UI.HomeActivity;
 import com.example.prasanna.trainshadule.Utilities.Constants;
 import com.example.prasanna.trainshadule.DAO.TrainLinesDAO;

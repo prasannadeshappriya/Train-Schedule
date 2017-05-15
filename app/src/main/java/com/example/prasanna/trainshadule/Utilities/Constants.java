@@ -1,8 +1,5 @@
 package com.example.prasanna.trainshadule.Utilities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Created by prasanna on 3/30/17.
  *
