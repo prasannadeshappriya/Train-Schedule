@@ -43,4 +43,8 @@ public abstract class Constants {
     public static final String SATURDAY_AND_SUNDAY = "SATURDAY AND SUNDAY";
     public static final String MONDAY_TO_FRIDAY = "MONDAY TO FRIDAY";
     public static final String DAILY = "DAILY";
+
+    //Fragment Tag names
+    public static final String FRAGMENT_TRAIN_SCHEDULE = "train_schedule";
+    public static final String FRAGMENT_FEEDBACK = "feedback";
 }

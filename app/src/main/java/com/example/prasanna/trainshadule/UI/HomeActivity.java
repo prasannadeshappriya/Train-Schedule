@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
@@ -14,7 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.example.prasanna.trainshadule.DAO.TrainStationDAO;
+import com.example.prasanna.trainshadule.Fragments.FeedBackFragment;
 import com.example.prasanna.trainshadule.Fragments.TrainScheduleFragment;
 import com.example.prasanna.trainshadule.R;
 import com.example.prasanna.trainshadule.ServerRequest.Request;
@@ -80,7 +85,7 @@ public class HomeActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void aVoid) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frmMain, trainScheduleFragment);
+            transaction.replace(R.id.frmMain, trainScheduleFragment,Constants.FRAGMENT_TRAIN_SCHEDULE);
             toolbar.setTitle("Train Schedule");
             transaction.commit();
         }
@@ -127,9 +132,17 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_train_schedule) {
             TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frmMain, trainScheduleFragment);
+            transaction.replace(R.id.frmMain, trainScheduleFragment,Constants.FRAGMENT_TRAIN_SCHEDULE);
             toolbar.setTitle("Train Schedule");
             transaction.commit();
+        }else if(id == R.id.nav_feedback){
+            FeedBackFragment feedBackFragment = new FeedBackFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frmMain,feedBackFragment,Constants.FRAGMENT_FEEDBACK);
+            toolbar.setTitle("FeedBack");
+            transaction.commit();
+        }else if(id==R.id.nav_schedule_history){
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -138,10 +151,16 @@ public class HomeActivity extends AppCompatActivity
     }
 
     public void refreshHome(){
-        TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frmMain, trainScheduleFragment);
-        toolbar.setTitle("Train Schedule");
-        transaction.commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.frmMain);
+        if(currentFragment.getTag().equals(Constants.FRAGMENT_TRAIN_SCHEDULE)) {
+            TrainScheduleFragment fragment = (TrainScheduleFragment)getSupportFragmentManager().findFragmentByTag(Constants.FRAGMENT_TRAIN_SCHEDULE);
+            fragment.updateDAO();
+//            TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(R.id.frmMain, trainScheduleFragment,Constants.FRAGMENT_TRAIN_SCHEDULE);
+//            toolbar.setTitle("Train Schedule");
+//            transaction.commit();
+        }
     }
 }

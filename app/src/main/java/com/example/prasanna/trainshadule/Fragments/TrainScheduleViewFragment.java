@@ -3,6 +3,8 @@ package com.example.prasanna.trainshadule.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,5 +54,27 @@ public class TrainScheduleViewFragment extends Fragment {
 
     public void setTrainScheduleDesc(HashMap<String,String> hashDesc){
         this.hashDesc = hashDesc;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(android.R.anim.slide_in_left,
+                            android.R.anim.slide_out_right);
+                    transaction.replace(R.id.frmMain,trainScheduleFragment);
+                    transaction.commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

@@ -6,10 +6,9 @@
         <item
             android:id="@+id/nav_train_schedule"
             android:title="Train Schedule" />
-        <!--<item-->
-            <!--android:id="@+id/nav_gallery"-->
-            <!--android:icon="@drawable/ic_menu_gallery"-->
-            <!--android:title="Gallery" />-->
+        <item
+            android:id="@+id/nav_schedule_history"
+            android:title="History" />
         <!--<item-->
             <!--android:id="@+id/nav_slideshow"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->

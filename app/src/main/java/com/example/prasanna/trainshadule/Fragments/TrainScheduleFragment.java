@@ -49,6 +49,10 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
     private CheckBox chkDailySchedule;
     private TextView tvDate;
 
+    public void updateDAO(){
+        trainStationDAO = new TrainStationDAO(getContext());
+        initializeArrays();
+    }
 
     @Nullable
     @Override
@@ -68,10 +72,7 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         chkDailySchedule.setChecked(true);
         chkNextTrain.setChecked(false);
 
-        ArrayList<String> arrTrainStations = trainStationDAO.getTrainStationName();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrTrainStations);
-        tvFromStation.setAdapter(adapter);
-        tvToStation.setAdapter(adapter);
+        initializeArrays();
 
         //Listeners
         btnSearch.setOnClickListener(
@@ -138,6 +139,15 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         );
 
         return view;
+    }
+
+    private void initializeArrays() {
+        tvFromStation.setAdapter(null);
+        tvToStation.setAdapter(null);
+        ArrayList<String> arrTrainStations = trainStationDAO.getTrainStationName();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrTrainStations);
+        tvFromStation.setAdapter(adapter);
+        tvToStation.setAdapter(adapter);
     }
 
     public void closeKeyboard(){
