@@ -71,7 +71,7 @@ public class FeedBackFragment extends Fragment {
     }
 
     private class message extends AsyncTask<Void,Void,Void>{
-        private String server_url = "http://10.0.2.2:8000/train_schedule_feedback";
+        private String server_url = Constants.SERVER_HOST_URL;
         private String server_response;
         private Context context;
         private Map<String, String> parameters;
