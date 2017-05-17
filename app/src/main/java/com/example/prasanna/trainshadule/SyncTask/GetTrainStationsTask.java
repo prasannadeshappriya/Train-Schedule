@@ -106,7 +106,7 @@ public class GetTrainStationsTask extends Task {
             }
 
         } catch (Exception e) {
-            Log.i(Constants.TAG, "Error on test AsyncTask :- " + e.toString());
+            Log.i(Constants.TAG, "Error on GetTrainStationsTask [AsyncTask] :- " + e.toString());
         }
         return null;
     }
@@ -117,6 +117,6 @@ public class GetTrainStationsTask extends Task {
         if(pd!=null) pd.dismiss();
         Log.i(Constants.TAG, "GetTrainStations Task successfully executed");
 //        Toast.makeText(context, "Sync process completed", Toast.LENGTH_LONG).show();
-        homeActivity.refreshHome();
+        homeActivity.refreshHome(null);
     }
 }

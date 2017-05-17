@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity
             pd = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
             TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
             trainScheduleFragment.synchronize(this, pd, this);
-            refreshHome();
+            refreshHome(trainScheduleFragment);
         }
     }
 
@@ -149,17 +149,22 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    public void refreshHome(){
+    public void refreshHome(TrainScheduleFragment trainScheduleFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.frmMain);
-        if(currentFragment.getTag().equals(Constants.FRAGMENT_TRAIN_SCHEDULE)) {
-            TrainScheduleFragment fragment = (TrainScheduleFragment)getSupportFragmentManager().findFragmentByTag(Constants.FRAGMENT_TRAIN_SCHEDULE);
-            fragment.updateDAO();
-//            TrainScheduleFragment trainScheduleFragment = new TrainScheduleFragment();
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.frmMain, trainScheduleFragment,Constants.FRAGMENT_TRAIN_SCHEDULE);
-//            toolbar.setTitle("Train Schedule");
-//            transaction.commit();
+        if(currentFragment==null) {
+            if(trainScheduleFragment==null){
+                trainScheduleFragment = new TrainScheduleFragment();
+            }
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frmMain, trainScheduleFragment, Constants.FRAGMENT_TRAIN_SCHEDULE);
+            toolbar.setTitle("Train Schedule");
+            transaction.commit();
+        }else{
+            if (currentFragment.getTag().equals(Constants.FRAGMENT_TRAIN_SCHEDULE)) {
+                TrainScheduleFragment fragment = (TrainScheduleFragment) getSupportFragmentManager().findFragmentByTag(Constants.FRAGMENT_TRAIN_SCHEDULE);
+                fragment.updateDAO();
+            }
         }
     }
 }
