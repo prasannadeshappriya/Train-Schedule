@@ -30,9 +30,9 @@ package com.example.prasanna.trainshadule.Utilities;
 
 public abstract class Constants {
     public static final String NAMESPACE = "http://ws.wso2.org/dataservice";
-    public static final String ENDPOINT = "http://103.11.35.13:9080/services/RailwayWebServiceV2Proxy.RailwayWebServiceV2ProxyHttpSoap12Endpoint";
+        public static final String ENDPOINT = "http://103.11.35.13:9080/services/RailwayWebServiceV2Proxy.RailwayWebServiceV2ProxyHttpSoap12Endpoint";
 
-    public static final String TAG = "Train-Shedule";
+    public static final String TAG = "Train-Schedule";
 
     //Database Constants
     public static final String DATABASE_NAME = "train_schedule";

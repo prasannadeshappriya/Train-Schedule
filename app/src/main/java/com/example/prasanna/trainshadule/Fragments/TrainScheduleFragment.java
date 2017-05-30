@@ -48,6 +48,9 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
     private CheckBox chkNextTrain;
     private CheckBox chkDailySchedule;
     private TextView tvDate;
+    //To store the data coming from the train schedule view fragment
+    private HashMap<String,String> arrData;
+    private Boolean isUpdate;
 
     public void updateDAO(){
         trainStationDAO = new TrainStationDAO(getContext());
@@ -71,6 +74,8 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         chkDailySchedule = (CheckBox) view.findViewById(R.id.chkDailySchedule);
         chkDailySchedule.setChecked(true);
         chkNextTrain.setChecked(false);
+        if(arrData==null){arrData = new HashMap<>();}
+        if(isUpdate==null ? isUpdate=false : isUpdate);
 
         initializeArrays();
 
@@ -148,6 +153,11 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrTrainStations);
         tvFromStation.setAdapter(adapter);
         tvToStation.setAdapter(adapter);
+
+        if(isUpdate){
+            tvFromStation.setText(arrData.get("from_station"));
+            tvToStation.setText(arrData.get("to_station"));
+        }
     }
 
     public void closeKeyboard(){
@@ -215,5 +225,12 @@ public class TrainScheduleFragment extends Fragment implements CalenderFragment.
     @Override
     public void onFinishEditDialog(String inputText) {
         tvDate.setText(inputText);
+    }
+
+    public void setAutoCompleteTextValues(HashMap<String,String> map){
+        //Coming to the train schedule fragment from train schedule view fragment
+        //train schedule view fragment will fix these values
+        isUpdate = true;
+        this.arrData = map;
     }
 }
